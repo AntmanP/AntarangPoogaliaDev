@@ -6,585 +6,208 @@
 <title>Antarang Poogalia</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Instrument+Serif:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-/* ═══════════════════════════════════════
-   DESIGN SYSTEM
-═══════════════════════════════════════ */
-
-/* ════════════════════════════════════════════════
-   FULL DARK DESIGN SYSTEM
-   One cohesive palette from hero to footer
-════════════════════════════════════════════════ */
-:root {
-  /* Core dark palette */
-  --bg:          #080809;
-  --bg-1:        #0e0e10;
-  --bg-2:        #141417;
-  --bg-3:        #1c1c20;
-  --bg-4:        #242428;
-  --border:      rgba(255,255,255,0.07);
-  --border-2:    rgba(255,255,255,0.12);
-
-  /* Text */
-  --text-1:      #ffffff;
-  --text-2:      rgba(255,255,255,0.75);
-  --text-3:      rgba(255,255,255,0.45);
-  --text-4:      rgba(255,255,255,0.25);
-
-  /* Accent */
-  --blue:        #3b82f6;
-  --blue-dim:    rgba(59,130,246,0.15);
-  --blue-border: rgba(59,130,246,0.3);
-  --blue-hover:  #2563eb;
-  --green:       #34d399;
-
-  /* Hero mesh */
-  --mesh1: rgba(37,99,235,0.13);
-  --mesh2: rgba(99,37,235,0.09);
-  --mesh3: rgba(16,185,129,0.06);
-
-  /* Compat aliases */
-  --white:       #ffffff;
-  --off-white:   #141417;
-  --light-gray:  rgba(255,255,255,0.07);
-  --mid-gray:    rgba(255,255,255,0.4);
-  --dark-gray:   #ffffff;
-  --ink:         #ffffff;
-  --ink-2:       rgba(255,255,255,0.75);
-  --ink-3:       rgba(255,255,255,0.45);
-  --ink-4:       rgba(255,255,255,0.28);
-  --paper:       #080809;
-  --paper-alt:   #0e0e10;
-  --rule:        rgba(255,255,255,0.07);
-  --blue-lt:     rgba(59,130,246,0.15);
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080809;--bg-1:#0e0e10;--bg-2:#141417;--bg-3:#1c1c20;--bg-4:#242428;
+  --border:rgba(255,255,255,0.07);--border-2:rgba(255,255,255,0.12);
+  --text-1:#ffffff;--text-2:rgba(255,255,255,0.75);--text-3:rgba(255,255,255,0.45);--text-4:rgba(255,255,255,0.25);
+  --blue:#3b82f6;--blue-dim:rgba(59,130,246,0.15);--blue-border:rgba(59,130,246,0.3);--blue-hover:#2563eb;
+  --green:#34d399;
+  --mesh1:rgba(37,99,235,0.13);--mesh2:rgba(99,37,235,0.09);--mesh3:rgba(16,185,129,0.06);
+  --off-white:#141417;--light-gray:rgba(255,255,255,0.07);--mid-gray:rgba(255,255,255,0.4);--dark-gray:#ffffff;
 }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: var(--bg);
-  color: var(--text-1);
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-  cursor: none;
-}
-
-/* ── CURSOR ─────────────────────────────────── */
-.cursor {
-  position: fixed; pointer-events: none; z-index: 9999;
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--blue);
-  transform: translate(-50%,-50%);
-  transition: width 0.2s ease, height 0.2s ease;
-}
-.cursor-ring {
-  position: fixed; pointer-events: none; z-index: 9998;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: 1.5px solid rgba(59,130,246,0.45);
-  transform: translate(-50%,-50%);
-  transition: width 0.4s cubic-bezier(0.34,1.2,0.64,1),
-              height 0.4s cubic-bezier(0.34,1.2,0.64,1), border-color 0.3s;
-}
-body.cursor-grow .cursor { width: 12px; height: 12px; }
-body.cursor-grow .cursor-ring { width: 46px; height: 46px; border-color: rgba(59,130,246,0.7); }
-
-/* ── NAV ─────────────────────────────────────── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  height: 60px; display: flex; align-items: center;
-  justify-content: space-between; padding: 0 2.5rem;
-  background: rgba(8,8,9,0.6);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.4s ease;
-}
-nav.scrolled { background: rgba(8,8,9,0.92); }
-.nav-left { display: flex; align-items: center; gap: 1.25rem; }
-.nav-logo {
-  font-family: 'Syne', sans-serif; font-size: 0.88rem; font-weight: 700;
-  color: white; text-decoration: none; letter-spacing: 0.1em;
-  text-transform: uppercase; white-space: nowrap; cursor: none;
-}
-.nav-logos { display: flex; align-items: center; height: 28px; position: relative; width: 90px; }
-.nav-co-logo {
-  position: absolute; left: 0; height: 22px; width: auto; max-width: 90px;
-  object-fit: contain; opacity: 0; transition: opacity 0.6s ease;
-  filter: grayscale(1) brightness(2);
-}
-.nav-co-logo.active { opacity: 0.35; }
-.nav-links { display: flex; gap: 2rem; list-style: none; }
-.nav-links a {
-  font-size: 0.72rem; font-weight: 500; color: var(--text-3);
-  text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
-  transition: color 0.2s; cursor: none;
-}
-.nav-links a:hover { color: var(--text-1); }
-
-/* ── HERO ────────────────────────────────────── */
-.hero {
-  min-height: 100vh; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center;
-  padding: 8rem 2rem 6rem; position: relative; overflow: hidden;
-  background: var(--bg);
-}
-.hero::before {
-  content: ''; position: absolute; inset: -50%; width: 200%; height: 200%;
-  background:
-    radial-gradient(ellipse 60% 50% at 20% 50%, var(--mesh1) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 60% at 80% 30%, var(--mesh2) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 60% 80%, var(--mesh3) 0%, transparent 50%);
-  animation: meshDrift 14s ease-in-out infinite alternate;
-  pointer-events: none; z-index: 0;
-}
-.hero::after {
-  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 90% 80% at 50% 50%, black 30%, transparent 80%);
-}
-@keyframes meshDrift {
-  0%   { transform: translate(0,0) rotate(0deg); }
-  33%  { transform: translate(2%,1%) rotate(1deg); }
-  66%  { transform: translate(-1%,2%) rotate(-0.5deg); }
-  100% { transform: translate(1%,-1%) rotate(0.8deg); }
-}
-.hero-eyebrow {
-  position: relative; z-index: 1;
-  display: inline-flex; align-items: center; gap: 0.6rem;
-  font-size: 0.7rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--text-4); margin-bottom: 1.75rem;
-  opacity: 0; animation: rise 0.8s ease 0.2s forwards;
-}
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: ''; display: block; width: 28px; height: 1px; background: var(--border-2);
-}
-.hero-name {
-  position: relative; z-index: 1;
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(3.8rem, 9vw, 7.5rem);
-  font-weight: 800; line-height: 0.95; letter-spacing: -0.03em;
-  color: white; margin-bottom: 0.15em;
-  opacity: 0; animation: rise 0.9s ease 0.35s forwards;
-}
-.hero-name .name-grad {
-  background: linear-gradient(135deg, #ffffff 30%, rgba(99,130,255,0.85) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
-}
-.hero-sub {
-  position: relative; z-index: 1;
-  font-family: 'Instrument Serif', serif; font-style: italic;
-  font-size: clamp(1.1rem, 2.2vw, 1.45rem);
-  color: var(--text-3); max-width: 520px; line-height: 1.65; margin-bottom: 2.25rem;
-  opacity: 0; animation: rise 0.8s ease 0.5s forwards;
-}
-.hero-meta {
-  position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: center;
-  gap: 0.7rem; flex-wrap: wrap; margin-bottom: 2.5rem;
-  opacity: 0; animation: rise 0.8s ease 0.65s forwards;
-}
-.hero-badge {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  padding: 0.38rem 1rem; border-radius: 980px;
-  font-size: 0.72rem; font-weight: 500;
-  border: 1px solid var(--border-2);
-  background: rgba(255,255,255,0.05);
-  color: var(--text-3); backdrop-filter: blur(8px);
-}
-.hero-badge strong { color: var(--text-2); font-weight: 600; }
-.hero-badge .badge-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
-.hero-actions {
-  position: relative; z-index: 1;
-  display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
-  opacity: 0; animation: rise 0.8s ease 0.8s forwards;
-}
-/* no transition band — seamless dark to dark */
-.hero-transition { display: none; }
-
-/* ── BUTTONS ─────────────────────────────────── */
-.btn {
-  display: inline-flex; align-items: center; gap: 0.4rem;
-  padding: 0.75rem 1.6rem; border-radius: 10px;
-  font-size: 0.88rem; font-weight: 600; text-decoration: none;
-  transition: all 0.22s ease; cursor: none; border: none; font-family: inherit;
-}
-.btn-blue { background: white; color: #080809; }
-.btn-blue:hover { transform: scale(1.03); box-shadow: 0 8px 32px rgba(255,255,255,0.15); }
-.btn-ghost { background: rgba(255,255,255,0.07); color: var(--text-2); border: 1px solid var(--border-2); }
-.btn-ghost:hover { background: rgba(255,255,255,0.13); }
-.btn-outline { background: rgba(255,255,255,0.05); color: var(--text-3); border: 1px solid var(--border); }
-.btn-outline:hover { background: rgba(255,255,255,0.1); color: white; }
-.btn-icon { width: 42px; height: 42px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; }
-
-/* ── DROPDOWN ────────────────────────────────── */
-.contact-dropdown-wrap { position: relative; }
-.contact-dropdown {
-  position: absolute; top: calc(100% + 0.6rem); left: 50%; transform: translateX(-50%);
-  background: var(--bg-2); border-radius: 14px; padding: 0.5rem;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
-  display: none; flex-direction: column; gap: 0.25rem; min-width: 240px; z-index: 50;
-}
-.contact-dropdown.open { display: flex; animation: dropIn 0.2s ease forwards; }
-.dropdown-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  padding: 0.75rem 1rem; border-radius: 10px;
-  text-decoration: none; color: var(--text-2);
-  font-size: 0.88rem; font-weight: 500; transition: background 0.15s;
-}
-.dropdown-item:hover { background: rgba(255,255,255,0.06); }
-.dropdown-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-.dropdown-icon.email { background: rgba(59,130,246,0.15); }
-.dropdown-icon.phone { background: rgba(52,211,153,0.12); }
-.dropdown-label { display: flex; flex-direction: column; }
-.dropdown-label span { font-size: 0.72rem; font-weight: 400; color: var(--text-4); }
-@keyframes dropIn { from{opacity:0;transform:translateX(-50%) translateY(-6px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
-
-/* ════════════════════════════════════════════════
-   CONTENT SECTIONS — FULL DARK
-════════════════════════════════════════════════ */
-.section { padding: 6rem 2rem; }
-.section-inner { max-width: 1020px; margin: 0 auto; }
-.alt-bg { background: var(--bg-1); }
-
-/* Section label */
-.section-label {
-  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em;
-  text-transform: uppercase; color: var(--blue);
-  margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;
-}
-.section-label::before {
-  content: ''; display: inline-block; width: 16px; height: 2px;
-  background: var(--blue); border-radius: 2px;
-}
-
-/* Section heading */
-.section-heading {
-  font-family: 'Syne', sans-serif;
-  font-size: clamp(2rem, 4vw, 3rem); font-weight: 800;
-  letter-spacing: -0.04em; line-height: 1.05; color: var(--text-1);
-  margin-bottom: 1rem;
-}
-
-/* Section description */
-.section-desc {
-  font-size: 0.9rem; font-weight: 300; color: var(--text-3);
-  max-width: 520px; line-height: 1.8; margin-bottom: 3rem;
-}
-
-/* ── ABOUT ───────────────────────────────────── */
-.about-cols { display: grid; grid-template-columns: 160px 1fr 1fr; gap: 3rem; align-items: start; }
-.about-photo { display: flex; justify-content: center; }
-.profile-photo { width: 100%; border-radius: 16px; object-fit: cover; box-shadow: 0 0 0 1px var(--border), 0 24px 48px rgba(0,0,0,0.4); filter: grayscale(10%); }
-.about-body p { font-size: 0.9rem; font-weight: 300; color: var(--text-2); line-height: 1.9; margin-bottom: 1.1rem; }
-.story-bullets { display: flex; flex-direction: column; gap: 1.25rem; }
-.story-bullet { display: flex; gap: 1rem; align-items: flex-start; }
-.bullet-icon {
-  width: 32px; height: 32px; border-radius: 8px;
-  background: var(--bg-3); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.95rem; flex-shrink: 0; margin-top: 0.1rem;
-}
-.bullet-text { font-size: 0.87rem; font-weight: 300; color: var(--text-2); line-height: 1.8; }
-
-/* Currently grid */
-.currently-grid {
-  display: grid; grid-template-columns: repeat(2,1fr);
-  gap: 1px; background: var(--border); border-radius: 14px;
-  overflow: hidden; margin-top: 3rem;
-}
-.currently-block { background: var(--bg-2); padding: 1.75rem; }
-.alt-bg .currently-block { background: var(--bg-3); }
-.currently-block-label {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 0.7rem;
-}
-.currently-block-text { font-size: 0.87rem; font-weight: 300; color: var(--text-3); line-height: 1.8; }
-
-/* Highlight card */
-.highlight-card {
-  background: var(--bg-2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 2.25rem; margin-top: 1rem;
-  position: relative; overflow: hidden;
-}
-.highlight-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  background: linear-gradient(90deg, var(--blue), transparent);
-}
-.highlight-card-label {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 0.75rem;
-}
-.highlight-card-title {
-  font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700;
-  letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 0.75rem;
-}
-.highlight-card-text { font-size: 0.87rem; font-weight: 300; color: var(--text-3); line-height: 1.85; }
-
-/* ── EXPERIENCE ──────────────────────────────── */
-.exp-item {
-  display: grid; grid-template-columns: 160px 1fr; gap: 3rem;
-  padding: 2rem 0; border-top: 1px solid var(--border);
-}
-.exp-item:last-child { border-bottom: 1px solid var(--border); }
-.exp-period { font-size: 0.7rem; color: var(--text-4); margin-bottom: 0.25rem; letter-spacing: 0.04em; }
-.exp-company { font-size: 0.87rem; font-weight: 600; color: var(--text-2); margin-bottom: 0.15rem; }
-.exp-location { font-size: 0.7rem; color: var(--text-4); }
-.exp-role {
-  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
-  letter-spacing: -0.02em; color: var(--text-1); margin-bottom: 0.9rem;
-}
-.exp-points { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
-.exp-points li {
-  font-size: 0.85rem; font-weight: 300; color: var(--text-3);
-  padding-left: 1.1rem; position: relative; line-height: 1.7;
-}
-.exp-points li::before {
-  content: ''; position: absolute; left: 0; top: 0.62em;
-  width: 4px; height: 4px; background: var(--blue); border-radius: 50%;
-}
-
-/* ── SKILLS + FILTER ─────────────────────────── */
-.filter-area { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
-.filter-group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
-.filter-group-label {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.14em;
-  text-transform: uppercase; color: var(--text-4); min-width: 88px; flex-shrink: 0;
-}
-.filter-chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-.fchip {
-  padding: 0.26rem 0.8rem; background: var(--bg-3);
-  border: 1px solid var(--border); border-radius: 980px;
-  font-size: 0.73rem; font-weight: 500; color: var(--text-3);
-  cursor: none; font-family: inherit; transition: all 0.18s ease;
-}
-.fchip:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-dim); }
-.fchip.active { background: var(--blue); color: white; border-color: var(--blue); }
-.filter-status {
-  display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-  padding: 0.5rem 1rem; background: var(--blue-dim);
-  border: 1px solid var(--blue-border); border-radius: 10px;
-  font-size: 0.78rem; color: var(--blue); font-weight: 500;
-}
-.filter-clear {
-  background: none; border: none; color: var(--blue); font-size: 0.78rem;
-  font-weight: 600; cursor: none; margin-left: auto; opacity: 0.7;
-  transition: opacity 0.15s; font-family: inherit;
-}
-.filter-clear:hover { opacity: 1; }
-
-/* Skills grid */
-.skills-grid {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--border); border-radius: 14px; overflow: hidden;
-}
-.skill-block { background: var(--bg-1); padding: 1.75rem; }
-.alt-bg .skill-block { background: var(--bg-2); }
-.skill-block-title {
-  font-size: 0.58rem; font-weight: 700; letter-spacing: 0.16em;
-  text-transform: uppercase; color: var(--blue); margin-bottom: 0.85rem;
-}
-.skill-items { display: flex; flex-wrap: wrap; gap: 0.35rem; }
-.chip {
-  padding: 0.24rem 0.7rem; background: var(--bg-3);
-  border: 1px solid var(--border); border-radius: 980px;
-  font-size: 0.74rem; color: var(--text-3);
-}
-.chip.depth {
-  background: var(--blue-dim); color: var(--blue); font-weight: 600;
-  border-color: var(--blue-border);
-}
-
-/* ── SPOTLIGHT PROJECT CARDS ─────────────────── */
-.projects-grid-new {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--border); border-radius: 16px;
-  overflow: visible; position: relative;
-}
-.pcard {
-  background: var(--bg-1); padding: 1.75rem;
-  display: flex; flex-direction: column; gap: 0.55rem;
-  transition: transform 0.38s cubic-bezier(0.34,1.15,0.64,1),
-              box-shadow 0.38s ease, opacity 0.35s ease, filter 0.35s ease;
-  position: relative; overflow: hidden;
-}
-.pcard:nth-child(1){border-radius:16px 0 0 0}
-.pcard:nth-child(2){border-radius:0}
-.pcard:nth-child(3){border-radius:0 16px 0 0}
-.pcard:nth-last-child(1){border-radius:0 0 16px 0}
-.pcard:nth-last-child(2){border-radius:0}
-.pcard:nth-last-child(3){border-radius:0 0 0 16px}
-.pcard-glow {
-  position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(circle at 50% 0%, rgba(59,130,246,0.1), transparent 65%);
-  opacity: 0; transition: opacity 0.38s ease;
-}
-.pcard.spotlight {
-  transform: scale(1.04); z-index: 5;
-  box-shadow: 0 16px 48px rgba(59,130,246,0.2), 0 0 0 1px rgba(59,130,246,0.25);
-  background: var(--bg-2); border-radius: 14px !important;
-}
-.pcard.spotlight .pcard-glow { opacity: 1; }
-.pcard.dimmed { opacity: 0.15; filter: grayscale(1) blur(0.5px); transform: scale(0.97); }
-.pcard-top { display: flex; align-items: flex-start; justify-content: space-between; }
-.pcard-emoji { font-size: 1.4rem; transition: transform 0.3s ease; }
-.pcard.spotlight .pcard-emoji { transform: scale(1.15); }
-.pcard-links { display: flex; gap: 0.4rem; }
-.pcard-link {
-  display: flex; align-items: center; justify-content: center;
-  width: 28px; height: 28px; border-radius: 8px;
-  background: var(--bg-3); color: var(--text-4);
-  text-decoration: none; transition: all 0.15s; cursor: none;
-}
-.pcard-link:hover { background: var(--blue-dim); color: var(--blue); }
-.pcard-title {
-  font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700;
-  letter-spacing: -0.02em; color: var(--text-1);
-}
-.pcard-desc { font-size: 0.79rem; font-weight: 300; color: var(--text-3); line-height: 1.65; flex: 1; }
-.pcard-stack { display: flex; flex-wrap: wrap; gap: 0.28rem; margin-top: 0.25rem; }
-.pchip {
-  padding: 0.14rem 0.5rem; background: var(--bg-3);
-  border: 1px solid var(--border); border-radius: 980px;
-  font-size: 0.64rem; color: var(--text-4);
-}
-.pchip.hl { background: var(--blue-dim); color: var(--blue); font-weight: 600; border-color: var(--blue-border); }
-.pub-chip { background: var(--blue-dim); color: var(--blue); font-weight: 500; border-color: var(--blue-border); }
-.filter-empty { text-align: center; padding: 4rem 2rem; color: var(--text-4); font-size: 0.88rem; }
-
-/* Publication card */
-.pub-card {
-  background: var(--bg-2); border: 1px solid var(--border);
-  border-radius: 14px; padding: 2.25rem; margin-top: 2rem;
-  display: flex; gap: 2rem; align-items: center;
-  position: relative; overflow: hidden;
-}
-.pub-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
-  background: linear-gradient(90deg, var(--blue), transparent);
-}
-.pub-badge {
-  background: var(--bg-3); border: 1px solid var(--border);
-  border-radius: 10px; padding: 1rem 1.25rem;
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--text-4);
-  white-space: nowrap; text-align: center; line-height: 1.6;
-}
-.pub-badge span {
-  display: block; font-family: 'Syne', sans-serif;
-  font-size: 1.6rem; font-weight: 800; color: white;
-  letter-spacing: -0.02em; margin-bottom: 0.25rem;
-}
-.pub-title {
-  font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700;
-  color: white; margin-bottom: 0.6rem; letter-spacing: -0.02em;
-}
-.pub-text { font-size: 0.85rem; font-weight: 300; color: var(--text-3); line-height: 1.8; }
-
-/* ── BUZZ ME ─────────────────────────────────── */
-.buzz-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-.buzz-left p { font-size: 0.9rem; font-weight: 300; color: var(--text-3); line-height: 1.85; margin-bottom: 2rem; }
-.buzz-form { display: flex; flex-direction: column; gap: 0.7rem; }
-.buzz-field-label { font-size: 0.7rem; font-weight: 600; color: var(--text-2); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
-.buzz-input {
-  width: 100%; padding: 0.85rem 1.15rem; border-radius: 10px;
-  border: 1px solid var(--border-2); background: var(--bg-2);
-  font-family: inherit; font-size: 0.88rem; color: var(--text-1); outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.buzz-input::placeholder { color: var(--text-4); }
-.buzz-input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-dim); }
-.buzz-input.error { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
-.buzz-input.valid { border-color: var(--green); box-shadow: 0 0 0 3px rgba(52,211,153,0.1); }
-.buzz-textarea { resize: vertical; min-height: 90px; }
-.buzz-help { font-size: 0.72rem; color: var(--text-4); padding-left: 0.2rem; }
-.buzz-error { font-size: 0.72rem; color: #f87171; padding-left: 0.2rem; display: none; }
-.buzz-error.show { display: block; }
-.buzz-btn {
-  padding: 0.85rem 1.5rem; background: white; color: #080809;
-  border: none; border-radius: 10px; font-family: inherit;
-  font-size: 0.9rem; font-weight: 700; cursor: none;
-  transition: all 0.22s ease; display: flex; align-items: center;
-  justify-content: center; gap: 0.5rem;
-}
-.buzz-btn:hover { background: var(--blue); color: white; transform: scale(1.01); }
-.buzz-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
-.buzz-success { display: none; text-align: center; padding: 1.5rem; }
-.buzz-success.show { display: block; }
-.buzz-success p { font-size: 0.9rem; color: var(--green); font-weight: 500; margin-top: 0.5rem; }
-.buzz-right { display: flex; justify-content: center; }
-
-/* Phone mockup */
-.phone-mockup {
-  width: 200px; background: var(--bg-1); border-radius: 36px; padding: 14px;
-  box-shadow: 0 32px 64px rgba(0,0,0,0.4), 0 0 0 1px var(--border);
-}
-.phone-mockup.vibrate { animation: vibrate 0.6s ease; }
-@keyframes vibrate {
-  0%{transform:rotate(0deg) translateX(0)} 10%{transform:rotate(-2deg) translateX(-4px)}
-  20%{transform:rotate(2deg) translateX(4px)} 30%{transform:rotate(-2deg) translateX(-4px)}
-  40%{transform:rotate(2deg) translateX(4px)} 60%{transform:rotate(1deg) translateX(2px)}
-  80%,100%{transform:rotate(0deg) translateX(0)}
-}
-.phone-notch { width: 60px; height: 20px; background: var(--bg-1); border-radius: 0 0 12px 12px; margin: 0 auto 10px; }
-.phone-screen { background: #000; border-radius: 26px; overflow: hidden; aspect-ratio: 9/19; display: flex; flex-direction: column; }
-.phone-status { background: #000; padding: 8px 16px 4px; display: flex; justify-content: space-between; }
-.phone-time { color: white; font-size: 0.65rem; font-weight: 600; }
-.phone-icons { color: white; font-size: 0.5rem; }
-.phone-body { flex: 1; background: #1c1c1e; display: flex; flex-direction: column; padding: 12px 10px; gap: 8px; overflow: hidden; }
-.phone-contact-name { font-size: 0.55rem; color: rgba(255,255,255,0.5); text-align: center; margin-bottom: 2px; }
-.phone-bubble-wrap { display: flex; flex-direction: column; gap: 6px; flex: 1; justify-content: flex-end; }
-.phone-bubble { max-width: 80%; padding: 6px 10px; border-radius: 14px; font-size: 0.52rem; line-height: 1.4; color: white; }
-.phone-bubble.incoming { background: #3a3a3c; align-self: flex-start; border-bottom-left-radius: 4px; }
-.phone-bubble.outgoing { background: var(--blue); align-self: flex-end; border-bottom-right-radius: 4px; }
-.phone-bubble.notification { background: #2c2c2e; align-self: center; font-size: 0.48rem; color: rgba(255,255,255,0.6); border-radius: 8px; padding: 4px 8px; }
-.phone-bubble.hidden { display: none; }
-.phone-input-bar { background: #2c2c2e; border-radius: 16px; padding: 5px 10px; display: flex; align-items: center; gap: 6px; margin-top: 6px; }
-.phone-input-placeholder { font-size: 0.48rem; color: rgba(255,255,255,0.3); flex: 1; }
-.phone-send { width: 14px; height: 14px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.4rem; color: white; }
-
-/* ── FOOTER ──────────────────────────────────── */
-footer { background: var(--bg-1); border-top: 1px solid var(--border); padding: 2.5rem 2rem; text-align: center; }
-footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
-
-/* ── SCROLL REVEAL ───────────────────────────── */
-.reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
-.reveal.in { opacity: 1; transform: translateY(0); }
-@keyframes rise { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-@keyframes scrollPulse { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.3)} }
-
-/* ── RESPONSIVE ──────────────────────────────── */
-@media (max-width:900px) { .about-cols{grid-template-columns:1fr 1fr} .about-photo{display:none} }
-@media (max-width:768px) {
-  .nav-links{display:none}
-  .about-cols{grid-template-columns:1fr;gap:2rem}
-  .skills-grid{grid-template-columns:1fr 1fr}
-  .projects-grid-new{grid-template-columns:1fr}
-  .exp-item{grid-template-columns:1fr;gap:0.6rem}
-  .currently-grid{grid-template-columns:1fr}
-  .pub-card{flex-direction:column;gap:1.25rem}
-  .buzz-wrap{grid-template-columns:1fr;gap:3rem}
-  .buzz-right{order:-1}
-}
-@media (max-width:480px) { .skills-grid{grid-template-columns:1fr} }
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text-1);-webkit-font-smoothing:antialiased;overflow-x:hidden;cursor:none}
+/* WAND CURSOR */
+#wand-cursor{position:fixed;pointer-events:none;z-index:9999;width:32px;height:32px;transform:translate(-2px,-2px);display:none}
+#sparkle-canvas{position:fixed;inset:0;pointer-events:none;z-index:9997}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(8,8,9,0.6);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);transition:background 0.4s ease}
+nav.scrolled{background:rgba(8,8,9,0.92)}
+.nav-left{display:flex;align-items:center;gap:1.25rem}
+.nav-logo{font-family:'Syne',sans-serif;font-size:0.88rem;font-weight:700;color:white;text-decoration:none;letter-spacing:0.1em;text-transform:uppercase;white-space:nowrap;cursor:none}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:0.72rem;font-weight:500;color:var(--text-3);text-decoration:none;letter-spacing:0.08em;text-transform:uppercase;transition:color 0.2s;cursor:none}
+.nav-links a:hover{color:var(--text-1)}
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 6rem;position:relative;overflow:hidden;background:var(--bg)}
+.hero::before{content:'';position:absolute;inset:-50%;width:200%;height:200%;background:radial-gradient(ellipse 60% 50% at 20% 50%,var(--mesh1) 0%,transparent 60%),radial-gradient(ellipse 50% 60% at 80% 30%,var(--mesh2) 0%,transparent 55%),radial-gradient(ellipse 40% 40% at 60% 80%,var(--mesh3) 0%,transparent 50%);animation:meshDrift 14s ease-in-out infinite alternate;pointer-events:none;z-index:0}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);background-size:80px 80px;mask-image:radial-gradient(ellipse 90% 80% at 50% 50%,black 30%,transparent 80%)}
+@keyframes meshDrift{0%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(2%,1%) rotate(1deg)}66%{transform:translate(-1%,2%) rotate(-0.5deg)}100%{transform:translate(1%,-1%) rotate(0.8deg)}}
+.hero-eyebrow{position:relative;z-index:1;display:inline-flex;align-items:center;gap:0.6rem;font-size:0.7rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-4);margin-bottom:1.75rem;opacity:0;animation:rise 0.8s ease 0.2s forwards}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';display:block;width:28px;height:1px;background:var(--border-2)}
+.hero-name{position:relative;z-index:1;font-family:'Syne',sans-serif;font-size:clamp(3.8rem,9vw,7.5rem);font-weight:800;line-height:0.95;letter-spacing:-0.03em;color:white;margin-bottom:0.15em;opacity:0;animation:rise 0.9s ease 0.35s forwards}
+.hero-name .name-grad{background:linear-gradient(135deg,#ffffff 30%,rgba(99,130,255,0.85) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{position:relative;z-index:1;font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(1.1rem,2.2vw,1.45rem);color:var(--text-3);max-width:520px;line-height:1.65;margin-bottom:2.25rem;opacity:0;animation:rise 0.8s ease 0.5s forwards}
+.hero-meta{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:0.7rem;flex-wrap:wrap;margin-bottom:2.5rem;opacity:0;animation:rise 0.8s ease 0.65s forwards}
+.hero-badge{display:inline-flex;align-items:center;gap:0.45rem;padding:0.38rem 1rem;border-radius:980px;font-size:0.72rem;font-weight:500;border:1px solid var(--border-2);background:rgba(255,255,255,0.05);color:var(--text-3);backdrop-filter:blur(8px)}
+.hero-badge strong{color:var(--text-2);font-weight:600}
+.hero-badge .badge-dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+.hero-actions{position:relative;z-index:1;display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;opacity:0;animation:rise 0.8s ease 0.8s forwards}
+.hero-transition{display:none}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:0.4rem;padding:0.75rem 1.6rem;border-radius:10px;font-size:0.88rem;font-weight:600;text-decoration:none;transition:all 0.22s ease;cursor:none;border:none;font-family:inherit}
+.btn-blue{background:white;color:#080809}
+.btn-blue:hover{transform:scale(1.03);box-shadow:0 8px 32px rgba(255,255,255,0.15)}
+.btn-ghost{background:rgba(255,255,255,0.07);color:var(--text-2);border:1px solid var(--border-2)}
+.btn-ghost:hover{background:rgba(255,255,255,0.13)}
+.btn-outline{background:rgba(255,255,255,0.05);color:var(--text-3);border:1px solid var(--border)}
+.btn-outline:hover{background:rgba(255,255,255,0.1);color:white}
+.btn-icon{width:42px;height:42px;padding:0;display:inline-flex;align-items:center;justify-content:center;border-radius:10px}
+/* SECTIONS */
+.section{padding:6rem 2rem}
+.section-inner{max-width:1020px;margin:0 auto}
+.alt-bg{background:var(--bg-1)}
+.section-label{font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem}
+.section-label::before{content:'';display:inline-block;width:16px;height:2px;background:var(--blue);border-radius:2px}
+.section-heading{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-0.04em;line-height:1.05;color:var(--text-1);margin-bottom:1rem}
+.section-desc{font-size:0.9rem;font-weight:300;color:var(--text-3);max-width:520px;line-height:1.8;margin-bottom:3rem}
+/* ABOUT */
+.about-cols{display:grid;grid-template-columns:160px 1fr 1fr;gap:3rem;align-items:start}
+.about-photo{display:flex;justify-content:center}
+.profile-photo{width:100%;border-radius:16px;object-fit:cover;box-shadow:0 0 0 1px var(--border),0 24px 48px rgba(0,0,0,0.4);filter:grayscale(10%)}
+.about-body p{font-size:0.9rem;font-weight:300;color:var(--text-2);line-height:1.9;margin-bottom:1.1rem}
+.story-bullets{display:flex;flex-direction:column;gap:1.25rem}
+.story-bullet{display:flex;gap:1rem;align-items:flex-start}
+.bullet-icon{width:32px;height:32px;border-radius:8px;background:var(--bg-3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;flex-shrink:0;margin-top:0.1rem}
+.bullet-text{font-size:0.87rem;font-weight:300;color:var(--text-2);line-height:1.8}
+.currently-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden;margin-top:3rem}
+.currently-block{background:var(--bg-2);padding:1.75rem}
+.alt-bg .currently-block{background:var(--bg-3)}
+.currently-block-label{font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:0.7rem}
+.currently-block-text{font-size:0.87rem;font-weight:300;color:var(--text-3);line-height:1.8}
+.highlight-card{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:2.25rem;margin-top:1rem;position:relative;overflow:hidden}
+.highlight-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent)}
+.highlight-card-label{font-size:0.58rem;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:0.75rem}
+.highlight-card-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-1);margin-bottom:0.75rem}
+.highlight-card-text{font-size:0.87rem;font-weight:300;color:var(--text-3);line-height:1.85}
+/* EXPERIENCE */
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:3rem;padding:2rem 0;border-top:1px solid var(--border)}
+.exp-item:last-child{border-bottom:1px solid var(--border)}
+.exp-period{font-size:0.7rem;color:var(--text-4);margin-bottom:0.25rem;letter-spacing:0.04em}
+.exp-company{font-size:0.87rem;font-weight:600;color:var(--text-2);margin-bottom:0.15rem}
+.exp-location{font-size:0.7rem;color:var(--text-4)}
+.exp-role{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-1);margin-bottom:0.9rem}
+.exp-points{list-style:none;display:flex;flex-direction:column;gap:0.5rem}
+.exp-points li{font-size:0.85rem;font-weight:300;color:var(--text-3);padding-left:1.1rem;position:relative;line-height:1.7}
+.exp-points li::before{content:'';position:absolute;left:0;top:0.62em;width:4px;height:4px;background:var(--blue);border-radius:50%}
+/* FILTER */
+.filter-area{display:flex;flex-direction:column;gap:0.6rem;margin-bottom:2rem}
+.filter-group{display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap}
+.filter-group-label{font-size:0.58rem;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-4);min-width:88px;flex-shrink:0}
+.filter-chips{display:flex;flex-wrap:wrap;gap:0.3rem}
+.fchip{padding:0.26rem 0.8rem;background:var(--bg-3);border:1px solid var(--border);border-radius:980px;font-size:0.73rem;font-weight:500;color:var(--text-3);cursor:none;font-family:inherit;transition:all 0.18s ease}
+.fchip:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-dim)}
+.fchip.active{background:var(--blue);color:white;border-color:var(--blue)}
+.filter-status{display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;padding:0.5rem 1rem;background:var(--blue-dim);border:1px solid var(--blue-border);border-radius:10px;font-size:0.78rem;color:var(--blue);font-weight:500}
+.filter-clear{background:none;border:none;color:var(--blue);font-size:0.78rem;font-weight:600;cursor:none;margin-left:auto;opacity:0.7;transition:opacity 0.15s;font-family:inherit}
+.filter-clear:hover{opacity:1}
+/* SKILLS GRID */
+.skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:14px;overflow:hidden}
+.skill-block{background:var(--bg-1);padding:1.75rem}
+.alt-bg .skill-block{background:var(--bg-2)}
+.skill-block-title{font-size:0.58rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);margin-bottom:0.85rem}
+.skill-items{display:flex;flex-wrap:wrap;gap:0.35rem}
+.chip{padding:0.24rem 0.7rem;background:var(--bg-3);border:1px solid var(--border);border-radius:980px;font-size:0.74rem;color:var(--text-3)}
+.chip.depth{background:var(--blue-dim);color:var(--blue);font-weight:600;border-color:var(--blue-border)}
+/* PROJECT SPOTLIGHT */
+.projects-grid-new{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:visible;position:relative}
+.pcard{background:var(--bg-1);padding:1.75rem;display:flex;flex-direction:column;gap:0.55rem;transition:transform 0.38s cubic-bezier(0.34,1.15,0.64,1),box-shadow 0.38s ease,opacity 0.35s ease,filter 0.35s ease;position:relative;overflow:hidden}
+.pcard:nth-child(1){border-radius:16px 0 0 0}.pcard:nth-child(3){border-radius:0 16px 0 0}
+.pcard:nth-last-child(1){border-radius:0 0 16px 0}.pcard:nth-last-child(3){border-radius:0 0 0 16px}
+.pcard-glow{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at 50% 0%,rgba(59,130,246,0.1),transparent 65%);opacity:0;transition:opacity 0.38s ease}
+.pcard.spotlight{transform:scale(1.04);z-index:5;box-shadow:0 16px 48px rgba(59,130,246,0.2),0 0 0 1px rgba(59,130,246,0.25);background:var(--bg-2);border-radius:14px!important}
+.pcard.spotlight .pcard-glow{opacity:1}
+.pcard.dimmed{opacity:0.15;filter:grayscale(1) blur(0.5px);transform:scale(0.97)}
+.pcard-top{display:flex;align-items:flex-start;justify-content:space-between}
+.pcard-emoji{font-size:1.4rem;transition:transform 0.3s ease}
+.pcard.spotlight .pcard-emoji{transform:scale(1.15)}
+.pcard-links{display:flex;gap:0.4rem}
+.pcard-link{display:flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--bg-3);color:var(--text-4);text-decoration:none;transition:all 0.15s;cursor:none}
+.pcard-link:hover{background:var(--blue-dim);color:var(--blue)}
+.pcard-title{font-family:'Syne',sans-serif;font-size:0.9rem;font-weight:700;letter-spacing:-0.02em;color:var(--text-1)}
+.pcard-desc{font-size:0.79rem;font-weight:300;color:var(--text-3);line-height:1.65;flex:1}
+.pcard-stack{display:flex;flex-wrap:wrap;gap:0.28rem;margin-top:0.25rem}
+.pchip{padding:0.14rem 0.5rem;background:var(--bg-3);border:1px solid var(--border);border-radius:980px;font-size:0.64rem;color:var(--text-4)}
+.pchip.hl{background:var(--blue-dim);color:var(--blue);font-weight:600;border-color:var(--blue-border)}
+.pub-chip{background:var(--blue-dim);color:var(--blue);font-weight:500;border-color:var(--blue-border)}
+.filter-empty{text-align:center;padding:4rem 2rem;color:var(--text-4);font-size:0.88rem}
+/* PUB CARD */
+.pub-card{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:2.25rem;margin-top:2rem;display:flex;gap:2rem;align-items:center;position:relative;overflow:hidden}
+.pub-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,var(--blue),transparent)}
+.pub-badge{background:var(--bg-3);border:1px solid var(--border);border-radius:10px;padding:1rem 1.25rem;font-size:0.62rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-4);white-space:nowrap;text-align:center;line-height:1.6}
+.pub-badge span{display:block;font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:white;letter-spacing:-0.02em;margin-bottom:0.25rem}
+.pub-title{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:white;margin-bottom:0.6rem;letter-spacing:-0.02em}
+.pub-text{font-size:0.85rem;font-weight:300;color:var(--text-3);line-height:1.8}
+/* BUZZ ME */
+.buzz-wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.buzz-left p{font-size:0.9rem;font-weight:300;color:var(--text-3);line-height:1.85;margin-bottom:2rem}
+.buzz-form{display:flex;flex-direction:column;gap:0.7rem}
+.buzz-field-label{font-size:0.7rem;font-weight:600;color:var(--text-2);margin-bottom:0.3rem;letter-spacing:0.02em}
+.buzz-input{width:100%;padding:0.85rem 1.15rem;border-radius:10px;border:1px solid var(--border-2);background:var(--bg-2);font-family:inherit;font-size:0.88rem;color:var(--text-1);outline:none;transition:border-color 0.2s,box-shadow 0.2s}
+.buzz-input::placeholder{color:var(--text-4)}
+.buzz-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-dim)}
+.buzz-input.error{border-color:#ef4444;box-shadow:0 0 0 3px rgba(239,68,68,0.1)}
+.buzz-input.valid{border-color:var(--green);box-shadow:0 0 0 3px rgba(52,211,153,0.1)}
+.buzz-textarea{resize:vertical;min-height:90px}
+.buzz-help{font-size:0.72rem;color:var(--text-4);padding-left:0.2rem}
+.buzz-error{font-size:0.72rem;color:#f87171;padding-left:0.2rem;display:none}
+.buzz-error.show{display:block}
+.buzz-btn{padding:0.85rem 1.5rem;background:white;color:#080809;border:none;border-radius:10px;font-family:inherit;font-size:0.9rem;font-weight:700;cursor:none;transition:all 0.22s ease;display:flex;align-items:center;justify-content:center;gap:0.5rem}
+.buzz-btn:hover{background:var(--blue);color:white;transform:scale(1.01)}
+.buzz-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
+.buzz-success{display:none;text-align:center;padding:1.5rem}
+.buzz-success.show{display:block}
+.buzz-success p{font-size:0.9rem;color:var(--green);font-weight:500;margin-top:0.5rem}
+.buzz-right{display:flex;justify-content:center}
+/* PHONE */
+.phone-mockup{width:200px;background:var(--bg-1);border-radius:36px;padding:14px;box-shadow:0 32px 64px rgba(0,0,0,0.4),0 0 0 1px var(--border)}
+.phone-mockup.vibrate{animation:vibrate 0.6s ease}
+@keyframes vibrate{0%{transform:rotate(0deg) translateX(0)}10%{transform:rotate(-2deg) translateX(-4px)}20%{transform:rotate(2deg) translateX(4px)}30%{transform:rotate(-2deg) translateX(-4px)}40%{transform:rotate(2deg) translateX(4px)}60%{transform:rotate(1deg) translateX(2px)}80%,100%{transform:rotate(0deg) translateX(0)}}
+.phone-notch{width:60px;height:20px;background:var(--bg-1);border-radius:0 0 12px 12px;margin:0 auto 10px}
+.phone-screen{background:#000;border-radius:26px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column}
+.phone-status{background:#000;padding:8px 16px 4px;display:flex;justify-content:space-between}
+.phone-time{color:white;font-size:0.65rem;font-weight:600}
+.phone-icons{color:white;font-size:0.5rem}
+.phone-body{flex:1;background:#1c1c1e;display:flex;flex-direction:column;padding:12px 10px;gap:8px;overflow:hidden}
+.phone-contact-name{font-size:0.55rem;color:rgba(255,255,255,0.5);text-align:center;margin-bottom:2px}
+.phone-bubble-wrap{display:flex;flex-direction:column;gap:6px;flex:1;justify-content:flex-end}
+.phone-bubble{max-width:80%;padding:6px 10px;border-radius:14px;font-size:0.52rem;line-height:1.4;color:white}
+.phone-bubble.incoming{background:#3a3a3c;align-self:flex-start;border-bottom-left-radius:4px}
+.phone-bubble.outgoing{background:var(--blue);align-self:flex-end;border-bottom-right-radius:4px}
+.phone-bubble.notification{background:#2c2c2e;align-self:center;font-size:0.48rem;color:rgba(255,255,255,0.6);border-radius:8px;padding:4px 8px}
+.phone-bubble.hidden{display:none}
+.phone-input-bar{background:#2c2c2e;border-radius:16px;padding:5px 10px;display:flex;align-items:center;gap:6px;margin-top:6px}
+.phone-input-placeholder{font-size:0.48rem;color:rgba(255,255,255,0.3);flex:1}
+.phone-send{width:14px;height:14px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.4rem;color:white}
+/* FOOTER */
+footer{background:var(--bg-1);border-top:1px solid var(--border);padding:2.5rem 2rem;text-align:center}
+footer p{font-size:0.7rem;color:var(--text-4);letter-spacing:0.06em}
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(16px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.in{opacity:1;transform:translateY(0)}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}
+/* RESPONSIVE */
+@media(max-width:900px){.about-cols{grid-template-columns:1fr 1fr}.about-photo{display:none}}
+@media(max-width:768px){.nav-links{display:none}.about-cols{grid-template-columns:1fr;gap:2rem}.skills-grid{grid-template-columns:1fr 1fr}.projects-grid-new{grid-template-columns:1fr}.exp-item{grid-template-columns:1fr;gap:0.6rem}.currently-grid{grid-template-columns:1fr}.pub-card{flex-direction:column;gap:1.25rem}.buzz-wrap{grid-template-columns:1fr;gap:3rem}.buzz-right{order:-1}}
+@media(max-width:480px){.skills-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
+<!-- WAND SVG + SPARKLE CANVAS -->
+<svg id="wand-cursor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" style="position:fixed;pointer-events:none;z-index:9999;width:32px;height:32px;transform:translate(-2px,-2px);display:none">
+  <line x1="4" y1="4" x2="26" y2="28" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="4,1 5.2,3.8 8,4 6,6 6.6,9 4,7.5 1.4,9 2,6 0,4 2.8,3.8" fill="#f0c040"/>
+  <line x1="4" y1="0" x2="4" y2="1.2" stroke="#f0c040" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="8" y1="4" x2="9.2" y2="4" stroke="#f0c040" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="7" y1="1" x2="7.8" y2="1.8" stroke="#f0c040" stroke-width="1" stroke-linecap="round"/>
+</svg>
+<canvas id="sparkle-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9997;width:100%;height:100%"></canvas>
 
 <nav>
   <div class="nav-left">
     <a href="#" class="nav-logo">AP</a>
-    <div class="nav-logos">
-      <img class="nav-co-logo active" src="data:image/png;base64,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" alt="ArcelorMittal"/>
-      <img class="nav-co-logo" src="data:image/png;base64,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" alt="Hearst"/>
-      <img class="nav-co-logo" src="data:image/png;base64,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" alt="ZS"/>
-    </div>
   </div>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
@@ -597,35 +220,27 @@ footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
 
 <section class="hero">
   <p class="hero-eyebrow">Software Engineer &nbsp;&middot;&nbsp; Open to Relocation</p>
-  <h1 class="hero-name">Antarang Poogalia</h1>
-  <p class="hero-sub">Software engineer with a backend core and hands-on experience across frontend, AI, and cloud.</p>
+  <h1 class="hero-name">Antarang<br/><span class="name-grad">Poogalia</span></h1>
+  <p class="hero-sub">Backend core and full-stack reach — building software that removes friction from everyday decisions.</p>
   <div class="hero-meta">
+    <div class="hero-badge"><span class="badge-dot"></span>&nbsp;<strong>Open to Work</strong></div>
     <div class="hero-badge"><strong>H1B Visa (Transferable)</strong></div>
   </div>
   <div class="hero-actions">
-    <div class="contact-dropdown-wrap">
-      <button class="btn btn-blue" onclick="toggleContactDropdown(event)">Get in Touch &#9660;</button>
-      <div class="contact-dropdown" id="contactDropdown">
-        <a href="email:antarangpo@gmail.com" class="dropdown-item">
-          <div class="dropdown-icon email">&#9993;&#65039;</div>
-          <div class="dropdown-label">Email me<span><span class="__cf_email__" data-cfemail="0e6f607a6f7c6f60697e614e69636f6762206d6163">[email&#160;protected]</span></span></div>
-        </a>
-        <a href="tel:+16023886882" class="dropdown-item">
-          <div class="dropdown-icon phone">&#128222;</div>
-          <div class="dropdown-label">Call me<span>+1 (602) 388-6882</span></div>
-        </a>
-      </div>
-    </div>
+    <a href="mailto:antarangpo@gmail.com" class="btn btn-blue">Get in Touch</a>
     <a href="Antarang_Poogalia_Resume.pdf" download class="btn btn-ghost">
-      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Resume
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Resume
     </a>
     <a href="https://github.com/AntmanP" target="_blank" class="btn btn-outline btn-icon" title="GitHub">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
     </a>
-    <a href="https://www.linkedin.com/in/antarang-poogalia-0a928a178/" target="_blank" class="btn btn-outline btn-icon" title="LinkedIn">
+    <a href="https://www.linkedin.com/in/antarang-poogalia" target="_blank" class="btn btn-outline btn-icon" title="LinkedIn">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
     </a>
+  </div>
+  <div style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:0.5rem;z-index:2;opacity:0;animation:rise 0.8s ease 1.1s forwards">
+    <span style="font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.2)">Scroll</span>
+    <div style="width:1px;height:36px;background:linear-gradient(to bottom,rgba(255,255,255,0.2),transparent);animation:scrollPulse 2s ease-in-out infinite"></div>
   </div>
 </section>
 
@@ -686,9 +301,9 @@ footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
     <div class="highlight-card reveal">
       <div class="highlight-card-label">A problem worth calling out</div>
       <div class="highlight-card-title">Real-time control of industrial hardware at a steel plant</div>
-      <div class="highlight-card-text">One of the more unusual problems I have solved: building real-time messaging between a coil car, a machine that physically moves heavy steel coils between factory bays, and our warehouse management system. Getting start, stop, and reset signals from industrial PLC hardware to talk reliably to software in a live production environment, where a missed message has physical consequences, required a different kind of careful thinking than typical web engineering.</div>
+      <div class="highlight-card-text">One of the more unusual problems I have solved: building real-time messaging between a coil car — a machine that physically moves heavy steel coils between factory bays — and our warehouse management system. Getting start, stop, and reset signals from industrial PLC hardware to talk reliably to software in a live production environment, where a missed message has physical consequences, required a different kind of careful thinking than typical web engineering.</div>
     </div>
-    <div class="exp-item reveal" style="margin-top:3rem;">
+    <div class="exp-item reveal" style="margin-top:2rem">
       <div class="exp-meta">
         <div class="exp-period">Jun to Aug 2023</div>
         <div class="exp-company">Hearst Communications</div>
@@ -727,231 +342,37 @@ footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
   <div class="section-inner">
     <p class="section-label reveal">Skills &amp; Projects</p>
     <h2 class="section-heading reveal">What I know. What I have built.</h2>
-    <p class="section-desc reveal">Click any skill to filter matching projects. Click again to clear.</p>
-
-    <!-- Skill filter chips -->
+    <p class="section-desc reveal">Click any skill to spotlight matching projects. Click again to clear.</p>
     <div class="filter-area reveal">
-      <div class="filter-group">
-        <span class="filter-group-label">Languages</span>
-        <div class="filter-chips">
-          <button class="fchip" data-skill="Java" onclick="toggleFilter(this)">Java</button>
-          <button class="fchip" data-skill="C#" onclick="toggleFilter(this)">C#</button>
-          <button class="fchip" data-skill="Python" onclick="toggleFilter(this)">Python</button>
-          <button class="fchip" data-skill="JavaScript" onclick="toggleFilter(this)">JavaScript</button>
-          <button class="fchip" data-skill="Android" onclick="toggleFilter(this)">Android</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-group-label">Frameworks</span>
-        <div class="filter-chips">
-          <button class="fchip" data-skill="React" onclick="toggleFilter(this)">React</button>
-          <button class="fchip" data-skill="React Native" onclick="toggleFilter(this)">React Native</button>
-          <button class="fchip" data-skill="Node.js" onclick="toggleFilter(this)">Node.js</button>
-          <button class="fchip" data-skill="Spring" onclick="toggleFilter(this)">Spring</button>
-          <button class="fchip" data-skill=".NET" onclick="toggleFilter(this)">.NET</button>
-          <button class="fchip" data-skill="Express.js" onclick="toggleFilter(this)">Express.js</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-group-label">AI / ML</span>
-        <div class="filter-chips">
-          <button class="fchip" data-skill="LangChain" onclick="toggleFilter(this)">LangChain</button>
-          <button class="fchip" data-skill="NLP" onclick="toggleFilter(this)">NLP</button>
-          <button class="fchip" data-skill="ML" onclick="toggleFilter(this)">ML</button>
-          <button class="fchip" data-skill="Scikit-learn" onclick="toggleFilter(this)">Scikit-learn</button>
-          <button class="fchip" data-skill="RAG" onclick="toggleFilter(this)">RAG</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-group-label">Cloud &amp; DevOps</span>
-        <div class="filter-chips">
-          <button class="fchip" data-skill="AWS" onclick="toggleFilter(this)">AWS</button>
-          <button class="fchip" data-skill="CI/CD" onclick="toggleFilter(this)">CI/CD</button>
-          <button class="fchip" data-skill="Git" onclick="toggleFilter(this)">Git</button>
-        </div>
-      </div>
-      <div class="filter-group">
-        <span class="filter-group-label">Databases</span>
-        <div class="filter-chips">
-          <button class="fchip" data-skill="MongoDB" onclick="toggleFilter(this)">MongoDB</button>
-          <button class="fchip" data-skill="Firebase" onclick="toggleFilter(this)">Firebase</button>
-          <button class="fchip" data-skill="PostgreSQL" onclick="toggleFilter(this)">PostgreSQL</button>
-        </div>
-      </div>
+      <div class="filter-group"><span class="filter-group-label">Languages</span><div class="filter-chips"><button class="fchip" data-skill="Java" onclick="toggleFilter(this)">Java</button><button class="fchip" data-skill="C#" onclick="toggleFilter(this)">C#</button><button class="fchip" data-skill="Python" onclick="toggleFilter(this)">Python</button><button class="fchip" data-skill="JavaScript" onclick="toggleFilter(this)">JavaScript</button><button class="fchip" data-skill="Android" onclick="toggleFilter(this)">Android</button></div></div>
+      <div class="filter-group"><span class="filter-group-label">Frameworks</span><div class="filter-chips"><button class="fchip" data-skill="React" onclick="toggleFilter(this)">React</button><button class="fchip" data-skill="React Native" onclick="toggleFilter(this)">React Native</button><button class="fchip" data-skill="Node.js" onclick="toggleFilter(this)">Node.js</button><button class="fchip" data-skill="Spring" onclick="toggleFilter(this)">Spring</button><button class="fchip" data-skill=".NET" onclick="toggleFilter(this)">.NET</button></div></div>
+      <div class="filter-group"><span class="filter-group-label">AI / ML</span><div class="filter-chips"><button class="fchip" data-skill="LangChain" onclick="toggleFilter(this)">LangChain</button><button class="fchip" data-skill="NLP" onclick="toggleFilter(this)">NLP</button><button class="fchip" data-skill="ML" onclick="toggleFilter(this)">ML</button><button class="fchip" data-skill="RAG" onclick="toggleFilter(this)">RAG</button></div></div>
+      <div class="filter-group"><span class="filter-group-label">Cloud</span><div class="filter-chips"><button class="fchip" data-skill="AWS" onclick="toggleFilter(this)">AWS</button><button class="fchip" data-skill="Firebase" onclick="toggleFilter(this)">Firebase</button><button class="fchip" data-skill="MongoDB" onclick="toggleFilter(this)">MongoDB</button></div></div>
     </div>
-
-    <!-- Active filter indicator -->
-    <div class="filter-status" id="filterStatus" style="display:none;">
-      <span id="filterStatusText"></span>
-      <button class="filter-clear" onclick="clearFilter()">Clear filter &times;</button>
-    </div>
-
-    <!-- Projects grid -->
+    <div class="filter-status" id="filterStatus" style="display:none"><span id="filterStatusText"></span><button class="filter-clear" onclick="clearFilter()">Clear &times;</button></div>
     <div class="projects-grid-new" id="projectsGrid">
-
-      <div class="pcard reveal" data-skills="React,Node.js,MongoDB,Express.js,JavaScript">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128230;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/InventoryManager" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Inventory Manager</div>
-        <div class="pcard-desc">Cross-platform mobile app with barcode scanning, image upload, and real-time search. Express.js and MongoDB backend with automated barcode-to-product lookup.</div>
-        <div class="pcard-stack">
-          <span class="pchip">React Native</span><span class="pchip">Express.js</span><span class="pchip">MongoDB</span><span class="pchip">Node.js</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Python,LangChain,ML,NLP">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#127374;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/RestaurantFinderAgent" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Restaurant Finder Agent</div>
-        <div class="pcard-desc">LLM-powered agentic system that surfaces restaurants based on nuanced preferences — cuisine, budget, location, ratings, and dietary restrictions.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Python</span><span class="pchip">LangChain</span><span class="pchip">Agentic AI</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Python,NLP,ML,Scikit-learn">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128188;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/JobRecommender" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Job Recommender</div>
-        <div class="pcard-desc">Resume-to-job matching engine using NLP similarity scoring to surface the most relevant listings for a candidate profile.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Python</span><span class="pchip">NLP</span><span class="pchip">Scikit-learn</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Java,Spring,React,JavaScript">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128269;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/JobScrapper" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Job Scraper</div>
-        <div class="pcard-desc">Automated scraper that aggregates recently posted job listings from companies. React frontend, Java + Spring backend, structured for downstream ML processing.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Java</span><span class="pchip">Spring</span><span class="pchip">React</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Python,ML,Scikit-learn">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128241;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/PhoneRecommendationSystem" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Phone Recommendation System</div>
-        <div class="pcard-desc">ML-powered recommendation engine that suggests phones based on user preferences and filters, using a structured Python pipeline for scoring and ranking.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Python</span><span class="pchip">ML</span><span class="pchip">Scikit-learn</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="JavaScript">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128202;</span>
-          <div class="pcard-links"></div>
-        </div>
-        <div class="pcard-title">Risk Visualization Platform</div>
-        <div class="pcard-desc">Interactive analytics platform using D3.js with stream graphs, circle packing, and real-time geospatial risk mapping with a custom risk-assessment matrix.</div>
-        <div class="pcard-stack">
-          <span class="pchip">D3.js</span><span class="pchip">JavaScript</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="React,Node.js,MongoDB,JavaScript,AWS">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#127758;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/swachhmap" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">SwachhMap</div>
-        <div class="pcard-desc">Civic tech platform for reporting and tracking waste and cleanliness issues. Built with React, Node.js, and MongoDB. Geolocation-based issue mapping with real-time updates.</div>
-        <div class="pcard-stack">
-          <span class="pchip">React</span><span class="pchip">Node.js</span><span class="pchip">MongoDB</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Android,Java,NLP,ML,Firebase,Python">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128233;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/SpamFilterForSocialNetwork" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">Spam Filter for Social Networks</div>
-        <div class="pcard-desc">Android app + Python ML backend classifying social network messages as spam or not. Used Naive Bayes, Logistic Regression, and SVM. 96% accuracy on 11K+ messages. Published in BBRC.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Android</span><span class="pchip">Java</span><span class="pchip">Python</span><span class="pchip">NLP</span><span class="pchip">Firebase</span>
-          <span class="pchip pub-chip">&#128196; Published</span>
-        </div>
-      </div>
-
-      <div class="pcard reveal" data-skills="Android,Java,Firebase">
-        <div class="pcard-glow"></div>
-        <div class="pcard-top">
-          <span class="pcard-emoji">&#128663;</span>
-          <div class="pcard-links">
-            <a href="https://github.com/AntmanP/SmartParkingApplication-ParKar" target="_blank" class="pcard-link" title="GitHub">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-            </a>
-          </div>
-        </div>
-        <div class="pcard-title">ParKar — Smart Parking App</div>
-        <div class="pcard-desc">Android parking slot reservation system with real-time slot selection, GPS-based location verification, fare calculation, and PayPal Sandbox payment gateway integration.</div>
-        <div class="pcard-stack">
-          <span class="pchip">Android</span><span class="pchip">Java</span><span class="pchip">Firebase</span><span class="pchip">PayPal API</span>
-        </div>
-      </div>
-
+      <div class="pcard reveal" data-skills="React,Node.js,MongoDB,JavaScript"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128230;</span><div class="pcard-links"><a href="https://github.com/AntmanP/InventoryManager" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Inventory Manager</div><div class="pcard-desc">Cross-platform mobile app with barcode scanning, image upload, and real-time search.</div><div class="pcard-stack"><span class="pchip">React Native</span><span class="pchip">Node.js</span><span class="pchip">MongoDB</span></div></div>
+      <div class="pcard reveal" data-skills="Python,LangChain,ML,NLP"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#127374;</span><div class="pcard-links"><a href="https://github.com/AntmanP/RestaurantFinderAgent" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Restaurant Finder Agent</div><div class="pcard-desc">LLM-powered agentic system surfacing restaurants from nuanced preferences.</div><div class="pcard-stack"><span class="pchip">Python</span><span class="pchip">LangChain</span><span class="pchip">ML</span></div></div>
+      <div class="pcard reveal" data-skills="Python,NLP,ML"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128188;</span><div class="pcard-links"><a href="https://github.com/AntmanP/JobRecommender" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Job Recommender</div><div class="pcard-desc">Resume-to-job NLP matching engine surfacing the most relevant listings.</div><div class="pcard-stack"><span class="pchip">Python</span><span class="pchip">NLP</span><span class="pchip">Scikit-learn</span></div></div>
+      <div class="pcard reveal" data-skills="Java,Spring,React,JavaScript"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128269;</span><div class="pcard-links"><a href="https://github.com/AntmanP/JobScrapper" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Job Scraper</div><div class="pcard-desc">Aggregates recent job listings. React frontend, Java + Spring backend.</div><div class="pcard-stack"><span class="pchip">Java</span><span class="pchip">Spring</span><span class="pchip">React</span></div></div>
+      <div class="pcard reveal" data-skills="React,Node.js,MongoDB,JavaScript,AWS"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#127758;</span><div class="pcard-links"><a href="https://github.com/AntmanP/swachhmap" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">SwachhMap</div><div class="pcard-desc">Civic tech platform for reporting waste issues with geolocation mapping.</div><div class="pcard-stack"><span class="pchip">React</span><span class="pchip">Node.js</span><span class="pchip">MongoDB</span></div></div>
+      <div class="pcard reveal" data-skills="Android,Java,NLP,ML,Firebase,Python"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128233;</span><div class="pcard-links"><a href="https://github.com/AntmanP/SpamFilterForSocialNetwork" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Spam Filter</div><div class="pcard-desc">Android + Python ML classifier. 96% accuracy on 11K+ messages. Published in BBRC.</div><div class="pcard-stack"><span class="pchip">Android</span><span class="pchip">Java</span><span class="pchip">NLP</span><span class="pchip pub-chip">&#128196; Published</span></div></div>
+      <div class="pcard reveal" data-skills="Android,Java,Firebase"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128663;</span><div class="pcard-links"><a href="https://github.com/AntmanP/SmartParkingApplication-ParKar" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">ParKar — Smart Parking</div><div class="pcard-desc">Parking slot reservation with GPS verification and PayPal Sandbox gateway.</div><div class="pcard-stack"><span class="pchip">Android</span><span class="pchip">Java</span><span class="pchip">Firebase</span></div></div>
+      <div class="pcard reveal" data-skills="Python,ML"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128241;</span><div class="pcard-links"><a href="https://github.com/AntmanP/PhoneRecommendationSystem" target="_blank" class="pcard-link"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg></a></div></div><div class="pcard-title">Phone Recommender</div><div class="pcard-desc">ML pipeline ranking phones by user preference and filters.</div><div class="pcard-stack"><span class="pchip">Python</span><span class="pchip">ML</span></div></div>
+      <div class="pcard reveal" data-skills="JavaScript"><div class="pcard-glow"></div><div class="pcard-top"><span class="pcard-emoji">&#128202;</span><div class="pcard-links"></div></div><div class="pcard-title">Risk Viz Platform</div><div class="pcard-desc">D3.js analytics with stream graphs, circle packing, geospatial risk mapping.</div><div class="pcard-stack"><span class="pchip">D3.js</span><span class="pchip">JavaScript</span></div></div>
     </div>
-
-    <!-- No results state -->
-    <div class="filter-empty" id="filterEmpty" style="display:none;">
-      <div style="font-size:2rem;">&#128269;</div>
-      <p>No projects match that filter yet.</p>
+    <div class="filter-empty" id="filterEmpty" style="display:none"><p>No projects match that filter.</p></div>
+    <div class="pub-card reveal">
+      <div class="pub-badge"><span>96%</span>Accuracy</div>
+      <div>
+        <div class="pub-title">Published Research &middot; Personalized Spam Filter for Social Networks</div>
+        <div class="pub-text">In 2020, before LLMs were mainstream, I built and published an NLP-based spam classifier trained on 11,000+ social network messages. Using Naive Bayes, Logistic Regression, and SVM, it achieved 96% accuracy on unbalanced data. Published in BBRC.</div>
+      </div>
     </div>
-
   </div>
 </section>
 
-
-<section class="section alt-bg" id="contact">
+<section class="section" id="contact">
   <div class="section-inner">
     <p class="section-label reveal">Contact</p>
     <h2 class="section-heading reveal">Buzz me.</h2>
@@ -962,16 +383,15 @@ footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
           <div class="buzz-field-label">Enter your LinkedIn profile URL or email address</div>
           <input type="text" class="buzz-input" id="linkedinInput" placeholder="linkedin.com/in/yourname or your@email.com" oninput="validateBuzzInput()"/>
           <div class="buzz-error" id="buzzError">Please enter a valid LinkedIn URL or email address</div>
-          <div class="buzz-field-label" style="margin-top:0.5rem;">Message <span style="font-weight:400;color:var(--mid-gray);">(optional)</span></div>
+          <div class="buzz-field-label" style="margin-top:0.5rem">Message <span style="font-weight:400;color:var(--text-4)">(optional)</span></div>
           <textarea class="buzz-input buzz-textarea" id="buzzMessage" placeholder="Add a message..."></textarea>
           <button class="buzz-btn" id="buzzBtn" onclick="sendBuzz()" disabled>
             <span id="buzzBtnText">&#128243; Buzz Me</span>
           </button>
         </div>
         <div class="buzz-success" id="buzzSuccess">
-          <div style="font-size:2rem;">&#128243;</div>
+          <div style="font-size:2rem">&#128243;</div>
           <p>Buzz sent! I will reach out soon.</p>
-          <p style="color:var(--mid-gray);font-size:0.8rem;margin-top:0.4rem;">Thanks for reaching out.</p>
         </div>
       </div>
       <div class="buzz-right">
@@ -1003,150 +423,203 @@ footer p { font-size: 0.7rem; color: var(--text-4); letter-spacing: 0.06em; }
 </section>
 
 <footer>
-  <p>&copy; 2025 Antarang Poogalia &nbsp;&middot;&nbsp; Open to full-time opportunities &nbsp;&middot;&nbsp; <span id="viewCount" style="opacity:0.5;"></span></p>
+  <p>&copy; 2025 Antarang Poogalia &nbsp;&middot;&nbsp; Open to full-time opportunities &nbsp;&middot;&nbsp; <span id="viewCount"></span></p>
 </footer>
 
 <script>
-// ── SPOTLIGHT FILTER ─────────────────────────────────────────────────
+// ── SCROLL REVEAL ──────────────────────────────
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(function(el) {
+  var siblings = Array.from(el.parentElement.querySelectorAll('.reveal'));
+  el.style.transitionDelay = (siblings.indexOf(el) * 0.07) + 's';
+  observer.observe(el);
+});
+
+// ── CLOCK ──────────────────────────────────────
+function updateClock() {
+  var now = new Date(), h = now.getHours(), m = now.getMinutes();
+  var el = document.getElementById('phoneTime');
+  if (el) el.textContent = h + ':' + (m < 10 ? '0' + m : m);
+}
+updateClock();
+setInterval(updateClock, 30000);
+
+// ── NAV SCROLL ─────────────────────────────────
+window.addEventListener('scroll', function() {
+  var nav = document.querySelector('nav');
+  if (!nav) return;
+  nav.classList[window.scrollY > 60 ? 'add' : 'remove']('scrolled');
+});
+
+// ── SPOTLIGHT FILTER ───────────────────────────
 var activeFilter = null;
 function toggleFilter(btn) {
   var skill = btn.getAttribute('data-skill');
   if (activeFilter === skill) { clearFilter(); return; }
   activeFilter = skill;
-  document.querySelectorAll('.fchip').forEach(function(c){ c.classList.remove('active'); });
+  document.querySelectorAll('.fchip').forEach(function(c) { c.classList.remove('active'); });
   btn.classList.add('active');
-  var cards = document.querySelectorAll('.pcard');
   var visible = 0;
-  cards.forEach(function(card) {
+  document.querySelectorAll('.pcard').forEach(function(card) {
     var skills = card.getAttribute('data-skills').split(',');
     var match = skills.indexOf(skill) >= 0;
     card.classList.remove('spotlight','dimmed');
-    if (match) { card.classList.add('spotlight'); visible++; }
-    else        { card.classList.add('dimmed'); }
-    // highlight matching stack chips
-    card.querySelectorAll('.pchip').forEach(function(ch){
-      ch.classList.toggle('hl', ch.textContent.trim() === skill);
-    });
+    card.classList.add(match ? 'spotlight' : 'dimmed');
+    if (match) visible++;
+    card.querySelectorAll('.pchip').forEach(function(ch) { ch.classList.toggle('hl', ch.textContent.trim() === skill); });
   });
-  var status = document.getElementById('filterStatus');
-  status.style.display = 'flex';
-  document.getElementById('filterStatusText').textContent =
-    visible + ' project' + (visible !== 1 ? 's' : '') + ' using ' + skill;
-  document.getElementById('filterEmpty').style.display = visible === 0 ? 'block' : 'none';
+  var st = document.getElementById('filterStatus');
+  if (st) { st.style.display = 'flex'; document.getElementById('filterStatusText').textContent = visible + ' project' + (visible !== 1 ? 's' : '') + ' using ' + skill; }
+  var fe = document.getElementById('filterEmpty');
+  if (fe) fe.style.display = visible === 0 ? 'block' : 'none';
 }
 function clearFilter() {
   activeFilter = null;
-  document.querySelectorAll('.fchip').forEach(function(c){ c.classList.remove('active'); });
-  document.querySelectorAll('.pcard').forEach(function(c){
+  document.querySelectorAll('.fchip').forEach(function(c) { c.classList.remove('active'); });
+  document.querySelectorAll('.pcard').forEach(function(c) {
     c.classList.remove('spotlight','dimmed');
-    c.querySelectorAll('.pchip').forEach(function(ch){ ch.classList.remove('hl'); });
+    c.querySelectorAll('.pchip').forEach(function(ch) { ch.classList.remove('hl'); });
   });
-  document.getElementById('filterStatus').style.display = 'none';
-  document.getElementById('filterEmpty').style.display = 'none';
+  var st = document.getElementById('filterStatus'); if (st) st.style.display = 'none';
+  var fe = document.getElementById('filterEmpty');  if (fe) fe.style.display = 'none';
 }
 
-// ── PORTFOLIO JS ─────────────────────────────────────────────────────
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => {
-  const siblings = Array.from(el.parentElement.querySelectorAll('.reveal'));
-  el.style.transitionDelay = (siblings.indexOf(el) * 0.07) + 's';
-  observer.observe(el);
-});
-function updateClock() {
-  const now = new Date(); let h = now.getHours(), m = now.getMinutes();
-  document.getElementById('phoneTime').textContent = h + ':' + (m < 10 ? '0' + m : m);
-}
-updateClock(); setInterval(updateClock, 30000);
-function toggleContactDropdown(e) {
-  e.stopPropagation(); document.getElementById('contactDropdown').classList.toggle('open');
-}
-document.addEventListener('click', () => { document.getElementById('contactDropdown').classList.remove('open'); });
-const logos = document.querySelectorAll('.nav-co-logo');
-let currentLogo = 0;
-setInterval(() => { logos[currentLogo].classList.remove('active'); currentLogo = (currentLogo + 1) % logos.length; logos[currentLogo].classList.add('active'); }, 2200);
-const linkedinRx = new RegExp('^(https?://)?(www\.)?linkedin\.com/in/[a-zA-Z0-9\-_%]+/?$');
-const emailRx    = new RegExp('^[^\s@]+@[^\s@]+\.[^\s@]+$');
+// ── BUZZ ME ────────────────────────────────────
+var linkedinRx = new RegExp('^(https?://)?(www\\.)?linkedin\\.com/in/[a-zA-Z0-9\\-_%]+/?$');
+var emailRx    = new RegExp('^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$');
 function validateBuzzInput() {
-  const val = document.getElementById('linkedinInput').value.trim();
-  const input = document.getElementById('linkedinInput');
-  const btn = document.getElementById('buzzBtn');
-  const err = document.getElementById('buzzError');
-  if (val === '') { input.className = 'buzz-input'; btn.disabled = true; err.classList.remove('show'); return; }
-  const isValid = linkedinRx.test(val) || emailRx.test(val);
-  if (isValid) { input.className = 'buzz-input valid'; btn.disabled = false; err.classList.remove('show'); document.getElementById('phoneInputPlaceholder').textContent = val.length > 22 ? val.substring(0,22)+'...' : val; }
-  else { input.className = 'buzz-input error'; btn.disabled = true; err.classList.add('show'); }
+  var val = document.getElementById('linkedinInput').value.trim();
+  var input = document.getElementById('linkedinInput');
+  var btn = document.getElementById('buzzBtn');
+  var err = document.getElementById('buzzError');
+  if (!val) { input.className = 'buzz-input'; btn.disabled = true; if (err) err.classList.remove('show'); return; }
+  var ok = linkedinRx.test(val) || emailRx.test(val);
+  input.className = 'buzz-input ' + (ok ? 'valid' : 'error');
+  btn.disabled = !ok;
+  if (err) err.classList[ok ? 'remove' : 'add']('show');
+  var ph = document.getElementById('phoneInputPlaceholder');
+  if (ph && ok) ph.textContent = val.length > 22 ? val.substring(0,22)+'...' : val;
 }
 function sendBuzz() {
-  const val = document.getElementById('linkedinInput').value.trim();
+  var val = document.getElementById('linkedinInput').value.trim();
   if (!val) return;
-  document.getElementById('buzzBtnText').textContent = 'Sending...';
+  var btnTxt = document.getElementById('buzzBtnText');
+  if (btnTxt) btnTxt.textContent = 'Sending...';
   document.getElementById('buzzBtn').disabled = true;
-  const msg = document.getElementById('buzzMessage').value.trim();
-  fetch('https://formspree.io/f/mreaknya', { method:'POST', body: JSON.stringify({contact:val, message:msg}), headers:{'Content-Type':'application/json'} });
-  setTimeout(() => {
-    const phone = document.getElementById('phoneMockup');
-    document.getElementById('phoneBubbleOut').classList.remove('hidden');
-    phone.classList.add('vibrate');
-    setTimeout(() => { document.getElementById('phoneBuzzSent').classList.remove('hidden'); phone.classList.remove('vibrate'); }, 700);
-    document.getElementById('buzzForm').style.display = 'none';
-    document.getElementById('buzzSuccess').classList.add('show');
+  var msg = document.getElementById('buzzMessage').value.trim();
+  fetch('https://formspree.io/f/mreaknya', { method:'POST', body:JSON.stringify({contact:val,message:msg}), headers:{'Content-Type':'application/json'} });
+  setTimeout(function() {
+    var phone = document.getElementById('phoneMockup');
+    var bubbleOut = document.getElementById('phoneBubbleOut');
+    var buzzSent  = document.getElementById('phoneBuzzSent');
+    if (bubbleOut) bubbleOut.classList.remove('hidden');
+    if (phone) { phone.classList.add('vibrate'); setTimeout(function(){ phone.classList.remove('vibrate'); if (buzzSent) buzzSent.classList.remove('hidden'); }, 700); }
+    var form = document.getElementById('buzzForm');
+    var succ = document.getElementById('buzzSuccess');
+    if (form) form.style.display = 'none';
+    if (succ) succ.classList.add('show');
   }, 600);
 }
 
-
-// ── SCROLL PULSE KEYFRAME (dynamic) ──────────────────────────────────
+// ── WAND CURSOR + SPARKLE ──────────────────────
 (function() {
-  var st = document.createElement('style');
-  st.textContent = '@keyframes scrollPulse{0%,100%{opacity:0.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.3)}}';
-  document.head.appendChild(st);
-})();
+  var wand   = document.getElementById('wand-cursor');
+  var canvas = document.getElementById('sparkle-canvas');
+  if (!wand || !canvas) return;
+  var ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize(); window.addEventListener('resize', resize);
 
-// ── CUSTOM CURSOR ─────────────────────────────────────────────────────
-(function() {
-  var cur  = document.getElementById('cursor');
-  var ring = document.getElementById('cursorRing');
-  var mx = 0, my = 0, rx = 0, ry = 0;
-  document.addEventListener('mousemove', function(e) {
-    mx = e.clientX; my = e.clientY;
-    cur.style.left  = mx + 'px';
-    cur.style.top   = my + 'px';
-  });
-  function animRing() {
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
+  function inNormalZone(e) {
+    var zones = ['#skills','#contact'];
+    for (var i=0;i<zones.length;i++) {
+      var el = document.querySelector(zones[i]);
+      if (!el) continue;
+      var r = el.getBoundingClientRect();
+      if (e.clientX>=r.left && e.clientX<=r.right && e.clientY>=r.top && e.clientY<=r.bottom) return true;
+    }
+    return false;
   }
-  animRing();
-  var grows = document.querySelectorAll('a, button, .fchip, .pcard, .exp-item, .project-card');
-  grows.forEach(function(el) {
-    el.addEventListener('mouseenter', function(){ document.body.classList.add('cursor-grow'); });
-    el.addEventListener('mouseleave', function(){ document.body.classList.remove('cursor-grow'); });
+
+  document.addEventListener('mousemove', function(e) {
+    if (inNormalZone(e)) { wand.style.display='none'; document.body.style.cursor='auto'; }
+    else { wand.style.display='block'; document.body.style.cursor='none'; wand.style.left=e.clientX+'px'; wand.style.top=e.clientY+'px'; }
+  });
+
+  var particles = [];
+  function rndColor() { return 'hsl('+Math.floor(Math.random()*360)+',100%,70%)'; }
+  function spawn(x,y) {
+    for (var i=0;i<18;i++) {
+      var a=(Math.PI*2/18)*i+(Math.random()-0.5)*0.5, sp=60+Math.random()*80;
+      particles.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,size:3+Math.random()*5,star:Math.random()>0.5,color:rndColor(),alpha:1,decay:0.018+Math.random()*0.015});
+    }
+  }
+  function drawStar(cx,x,y,r,color,alpha) {
+    cx.save();cx.globalAlpha=alpha;cx.fillStyle=color;cx.beginPath();
+    for(var i=0;i<5;i++){var a=(Math.PI*2/5)*i-Math.PI/2,b=a+Math.PI/5;i===0?cx.moveTo(x+Math.cos(a)*r,y+Math.sin(a)*r):cx.lineTo(x+Math.cos(a)*r,y+Math.sin(a)*r);cx.lineTo(x+Math.cos(b)*r*0.4,y+Math.sin(b)*r*0.4);}
+    cx.closePath();cx.fill();cx.restore();
+  }
+  var lt=0;
+  function anim(ts) {
+    var dt=Math.min((ts-lt)/1000,0.05);lt=ts;
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=particles.length-1;i>=0;i--){
+      var p=particles[i];p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=120*dt;p.alpha-=p.decay;
+      if(p.alpha<=0){particles.splice(i,1);continue;}
+      if(p.star)drawStar(ctx,p.x,p.y,p.size,p.color,p.alpha);
+      else{ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.size*0.6,0,Math.PI*2);ctx.fill();ctx.restore();}
+    }
+    requestAnimationFrame(anim);
+  }
+  requestAnimationFrame(anim);
+
+  var palette=['#3b82f6','#8b5cf6','#ec4899','#f59e0b','#10b981','#ef4444','#06b6d4','#f97316','#84cc16','#a78bfa','#fb7185','#34d399'];
+  function pickColor(){return palette[Math.floor(Math.random()*palette.length)];}
+  var colorable=['section-label','section-heading','exp-role','pcard-title','hero-name','currently-block-label','skill-block-title','highlight-card-title','pub-title','hero-eyebrow','hero-sub','exp-company','about-body','bullet-text','currently-block-text'];
+
+  document.addEventListener('click', function(e) {
+    if (inNormalZone(e)) return;
+    spawn(e.clientX, e.clientY);
+    wand.style.transition='transform 0.15s ease';
+    wand.style.transform='translate(-2px,-2px) rotate(22deg) scale(1.15)';
+    setTimeout(function(){ wand.style.transform='translate(-2px,-2px)'; }, 160);
+    var el = e.target;
+    for (var i=0;i<6;i++) {
+      if (!el || !el.tagName) break;
+      if (el===document.body||el===document.documentElement) break;
+      var cls = typeof el.className==='string' ? el.className : '';
+      for (var j=0;j<colorable.length;j++) {
+        if (cls.indexOf(colorable[j])>=0) {
+          var c=pickColor();
+          el.style.transition='color 0.35s ease';
+          el.style.color=c; el.style.webkitTextFillColor=c;
+          return;
+        }
+      }
+      el=el.parentElement;
+    }
+  });
+
+  document.addEventListener('dblclick', function(e) {
+    if (inNormalZone(e)) return;
+    document.querySelectorAll('[style*="color"]').forEach(function(el){ el.style.color=''; el.style.webkitTextFillColor=''; });
   });
 })();
 
-// ── NAV SCROLL BEHAVIOUR ──────────────────────────────────────────────
-window.addEventListener('scroll', function() {
-  var nav = document.querySelector('nav');
-  if (window.scrollY > 60) { nav.classList.add('scrolled'); }
-  else { nav.classList.remove('scrolled'); }
-});
-
-// ── PAGE VIEW COUNTER ─────────────────────────────────────────────────
+// ── PAGE VIEW COUNTER ──────────────────────────
 (function() {
   var el = document.getElementById('viewCount');
   if (!el) return;
-  fetch('https://api.countapi.xyz/hit/antarangpoogalia.dev/visits')
-    .then(function(r){ return r.json(); })
-    .then(function(d){
-      if (d && d.value) {
-        el.textContent = d.value.toLocaleString() + ' visits';
-      }
-    })
-    .catch(function(){});
+  fetch('https://api.counterapi.dev/v1/antarangpoogalia-portfolio/hits/up', {mode:'cors'})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    var count = d.count||d.value||null;
+    if (count) { el.textContent = Number(count).toLocaleString()+' visits'; el.style.opacity='0.45'; }
+  })
+  .catch(function(){ el.textContent='Live now'; el.style.opacity='0.2'; });
 })();
-
 </script>
 </body>
 </html>
